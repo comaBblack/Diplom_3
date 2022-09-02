@@ -24,6 +24,11 @@ public class CabinetPageTest {
     MainPageLokators mpElements;
     CabinetPageLokators cElements;
 
+    public void enter(String email, String password){
+        enterElements.setEmailInput(email);
+        regElements.setPasswordInput(password);
+        enterElements.getToEnterButton().click();
+    }
     @Before
     public void setUp() {
         //Configuration.browser = "yandex";
@@ -57,9 +62,7 @@ public class CabinetPageTest {
         //клик по кнопке "Личный кабинет"
         mpElements.getCabinetButton().click();
         //вход в приложение
-        enterElements.setEmailInput(email);
-        regElements.setPasswordInput(password);
-        enterElements.getToEnterButton().click();
+        enter(email, password);
         //клик по кнопке "Личный кабинет" после авторизации
         mpElements.getCabinetButton().click();
         //проверка перехода на страницу личного кабинета
@@ -71,9 +74,7 @@ public class CabinetPageTest {
     public void goToMainPageFromLogoTest() {
         mpElements.getCabinetButton().click();
         //вход в приложение
-        enterElements.setEmailInput(email);
-        regElements.setPasswordInput(password);
-        enterElements.getToEnterButton().click();
+        enter(email, password);
         //клик по кнопке "Личный кабинет"
         mpElements.getCabinetButton().click();
         //клик по лого
@@ -87,9 +88,7 @@ public class CabinetPageTest {
     public void goToMainPageFromConstractorTest() {
         mpElements.getCabinetButton().click();
         //вход в приложение
-        enterElements.setEmailInput(email);
-        regElements.setPasswordInput(password);
-        enterElements.getToEnterButton().click();
+        enter(email, password);
         //клик по кнопке "Личный кабинет"
         mpElements.getCabinetButton().click();
         //клик по конструктору
@@ -103,9 +102,7 @@ public class CabinetPageTest {
     public void exitFromCabinetTest(){
         mpElements.getCabinetButton().click();
         //вход в приложение
-        enterElements.setEmailInput(email);
-        regElements.setPasswordInput(password);
-        enterElements.getToEnterButton().click();
+        enter(email, password);
         //клик по кнопке "Личный кабинет"
         mpElements.getCabinetButton().click();
         cElements.getExitButton().click();

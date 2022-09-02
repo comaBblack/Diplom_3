@@ -20,6 +20,24 @@ public class RegistrationPageTest {
     RegistrationPageLokators elements;
     EnterPageLocators locators;
     MainPageLokators mplocators;
+    Faker faker = new Faker();
+    String email = faker.internet().emailAddress();
+    String password = faker.internet().password();
+
+    public void registration(String email, String password){
+        Faker faker = new Faker();
+        elements.setNameRegInput(faker.name().name());
+        elements.setEmailInput(email);
+        elements.setPasswordInput(password);
+        elements.getRegistrationButton().click(); }
+    public void delete(String email, String password){
+        Data user = Data.builder()
+                .email(email)
+                .password(password)
+                .build();
+        userDelete(user);
+    }
+
     @Before
     public void setUp() {
         //Configuration.browser = "yandex";
@@ -45,34 +63,19 @@ public class RegistrationPageTest {
     @Test
     @DisplayName("Проверка успешной регистрации")
     public void successfulRegistrationTest(){
-        Faker faker = new Faker();
-        String email = faker.internet().emailAddress();
-        String password = faker.internet().password();
-        elements.setNameRegInput(faker.name().name());
-        elements.setEmailInput(email);
-        elements.setPasswordInput(password);
-        elements.getRegistrationButton().click();
+        //зарегистрировать пользователя
+        registration(email,password);
         //проверка перехода на страницу логина
         locators.getEnterHeaderEnterPage().shouldBe(visible);
         //удаление позьвателя
-        Data user = Data.builder()
-                .email(email)
-                .password(password)
-                .build();
-        userDelete(user);
+        delete(email, password);
     }
 
     @Test
     @DisplayName("Вход через кнопку в форме регистрации")
     public void enterFromRegistrationPage(){
-        Faker faker = new Faker();
-        String email = faker.internet().emailAddress();
-        String password = faker.internet().password();
         //зарегистрировать пользователя
-        elements.setNameRegInput(faker.name().name());
-        elements.setEmailInput(email);
-        elements.setPasswordInput(password);
-        elements.getRegistrationButton().click();
+        registration(email,password);
         //вернуться на страницу регистрации
         locators.getToRegistrateButton().click();
         //перейти на страницу логина
@@ -84,10 +87,6 @@ public class RegistrationPageTest {
         //проверка перехода на главную страницу авторизованного пользователя
         mplocators.getCreateOrderButton().shouldBe(visible);
         //удаление позьвателя
-        Data user = Data.builder()
-                .email(email)
-                .password(password)
-                .build();
-        userDelete(user);
+        delete(email, password);
     }
 }

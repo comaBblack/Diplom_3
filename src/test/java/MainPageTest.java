@@ -1,5 +1,4 @@
 import api.Data;
-import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.WebDriverRunner;
 import com.github.javafaker.Faker;
@@ -24,6 +23,12 @@ public class MainPageTest {
     EnterPageLocators enterElements;
     MainPageLokators mpElements;
     CabinetPageLokators cElements;
+
+    public void enter(String email, String password){
+        enterElements.setEmailInput(email);
+        regElements.setPasswordInput(password);
+        enterElements.getToEnterButton().click();
+    }
 
     @Before
     public void setUp() {
@@ -58,9 +63,7 @@ public class MainPageTest {
         //переход на экран логина с главного экрана
         mpElements.getEnterButtonMainPage().click();
         //вход в приложение
-        enterElements.setEmailInput(email);
-        regElements.setPasswordInput(password);
-        enterElements.getToEnterButton().click();
+        enter(email, password);
         //проверка перехода на главную страницу авторизованного пользователя
         mpElements.getCreateOrderButton().shouldBe(visible);
     }
@@ -71,9 +74,7 @@ public class MainPageTest {
         //клик по кнопке "Личный кабинет"
         mpElements.getCabinetButton().click();
         //вход в приложение
-        enterElements.setEmailInput(email);
-        regElements.setPasswordInput(password);
-        enterElements.getToEnterButton().click();
+        enter(email, password);
         //проверка перехода на главную страницу авторизованного пользователя
         mpElements.getCreateOrderButton().shouldBe(visible);
     }
